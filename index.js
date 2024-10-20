@@ -21,7 +21,23 @@ const gameBoard = () => {
       board.push({ cord: [item, i], occupied: false });
     }
   });
+  //placeing ships on board
+  const placeShipOnBoard = (...cords) => {
+    const results = [];
+    cords.forEach((cord) => {
+      for (let boardCord of board) {
+        //compare 2 array together with Json.stringfy
+        if (JSON.stringify(cord) === JSON.stringify(boardCord.cord)) {
+          boardCord.occupied = true;
+          //new property
+          boardCord.attacked = false;
+          results.push(boardCord);
+        }
+      }
+    });
+    return results;
+  };
 
-  return { board };
+  return { placeShipOnBoard };
 };
 export { ship, gameBoard };

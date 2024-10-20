@@ -13,7 +13,14 @@ test("test for isSunk fn", () => {
   expect(ship1.isSunk()).toBe(true);
 });
 
-test.only("test for gameBoard", () => {
+test.only("test for Gameboard's placeShipOnBoard fn", () => {
   const gameBoard1 = gameBoard();
-  expect(gameBoard1.board.length).toBe(100);
+  const expectedResults = [
+    { attacked: false, cord: ["a", 1], occupied: true },
+    { attacked: false, cord: ["a", 2], occupied: true },
+    { attacked: false, cord: ["a", 3], occupied: true },
+  ];
+  expect(gameBoard1.placeShipOnBoard(["a", 1], ["a", 2], ["a", 3])).toEqual(
+    expectedResults
+  );
 });

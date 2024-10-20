@@ -1,10 +1,11 @@
-const ship = (length, numHits = 0) => {
+const ship = (length = 0, numHits = 0) => {
   return {
     length,
     numHits,
     hit: function () {
-      numHits += 1;
+      this.numHits += 1;
     },
   };
 };
+
 export { ship };

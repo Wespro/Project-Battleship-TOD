@@ -1,4 +1,5 @@
-const ship = (length = 0, numHits = 0) => {
+//Ship  factory
+const Ship = (length = 0, numHits = 0) => {
   return {
     length,
     numHits,
@@ -11,7 +12,8 @@ const ship = (length = 0, numHits = 0) => {
   };
 };
 
-const gameBoard = () => {
+//gameboard  factory
+const Gameboard = () => {
   const horizontal = "abcdefghij";
   const horizontalGrid = horizontal.split("");
   const board = [];
@@ -55,4 +57,13 @@ const gameBoard = () => {
 
   return { placeShipOnBoard, receiveAttack, shipCords, cordsBeenHit };
 };
-export { ship, gameBoard };
+
+//player factory
+const Player = (name) => {
+  return {
+    name,
+    board: Gameboard(),
+  };
+};
+
+export { Ship, Gameboard, Player };

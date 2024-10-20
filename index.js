@@ -15,15 +15,17 @@ const gameBoard = () => {
   const horizontal = "abcdefghij";
   const horizontalGrid = horizontal.split("");
   const board = [];
+  const shipCords = [];
+  const cordsBeenHit = [];
   // getting the board
   horizontalGrid.forEach((item) => {
     for (let i = 1; i < 11; i++) {
-      board.push({ cord: [item, i], occupied: false });
+      board.push({ cord: [item, i], occupied: false, attacked: false });
     }
   });
   //placeing ships on board
   const placeShipOnBoard = (...cords) => {
-    const results = [];
+    const ship = [];
     cords.forEach((cord) => {
       for (let boardCord of board) {
         //compare 2 array together with Json.stringfy
@@ -31,13 +33,26 @@ const gameBoard = () => {
           boardCord.occupied = true;
           //new property
           boardCord.attacked = false;
-          results.push(boardCord);
+          ship.push(boardCord);
         }
       }
     });
-    return results;
+    shipCords.push(ship);
+    return ship;
   };
 
-  return { placeShipOnBoard };
+  const receiveAttack = (cord) => {
+    let hitCord;
+    board.forEach((boardCord) => {
+      if (JSON.stringify(cord) === JSON.stringify(boardCord.cord)) {
+        boardCord.attacked = true;
+        cordsBeenHit.push(boardCord);
+        hitCord = boardCord;
+      }
+    });
+    return hitCord;
+  };
+
+  return { placeShipOnBoard, receiveAttack, shipCords, cordsBeenHit };
 };
 export { ship, gameBoard };

@@ -11,14 +11,14 @@ export default (function () {
 
   player.gameboard.board.forEach((cord) => {
     const cell = document.createElement("div");
-    cell.classList.add(`${cord.cord}`, "cell");
+    cell.classList.add(`${cord.cord[0]}${cord.cord[1]}`, "cell");
     fragment.append(cell);
     youBoard.append(fragment);
   });
 
   computer.gameboard.board.forEach((cord) => {
     const cell = document.createElement("div");
-    cell.classList.add(`${cord.cord}`, "cell");
+    cell.classList.add(`${cord.cord[0]}${cord.cord[1]}`, "cell");
     fragment2.append(cell);
     computerBoard.append(fragment2);
   });

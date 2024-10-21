@@ -6,27 +6,31 @@
 button {
   border: none;
   padding: 0.6rem 1.5rem;
-  border-radius: 10px;
+  border-radius: 6px;
   font-size: 1rem;
   cursor: pointer;
+  transition: 200ms ease;
 }
 a {
   color: aliceblue;
   text-shadow: 3px 3px 5px black;
+  transition: 200ms ease;
 }
 
 a:hover {
   filter: brightness(1.2);
+  transform: scale(1.05);
 }
 button:hover {
   filter: brightness(1.2);
+  transform: scale(1.05);
 }
 body {
   background-image: linear-gradient(to right, rgb(137, 3, 61), rgb(82, 0, 203));
 }
 header h1 {
   text-align: center;
-  margin: 2rem 0 3rem;
+  margin: 1rem 0 2rem;
   color: aliceblue;
   text-shadow: 3px 3px 5px black;
 }
@@ -55,6 +59,10 @@ main {
   grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   border-radius: 14px;
   align-content: center;
+  transition: 200ms ease-in-out;
+}
+.youBoard:hover {
+  transform: scale(1.02);
 }
 .youBoardHeader {
   text-align: center;
@@ -75,6 +83,10 @@ main {
   grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   border-radius: 14px;
   align-content: center;
+  transition: 200ms ease;
+}
+.computerBoard:hover {
+  transform: scale(1.02);
 }
 .computerBoardHeader {
   text-align: center;
@@ -106,6 +118,7 @@ main {
   border-bottom-right-radius: 10px 10px;
 }
 .controls {
+  margin: 1rem;
   display: flex;
   gap: 1.5rem;
   flex-direction: row-reverse;
@@ -118,9 +131,11 @@ main {
 }
 .shuffle {
   background-color: rgb(143, 143, 143);
+  display: none;
 }
 .reset {
   background-color: rgb(207, 2, 84);
+  display: none;
 }
 
 footer {

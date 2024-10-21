@@ -55,14 +55,14 @@ const Gameboard = () => {
     return hitCord;
   };
 
-  return { placeShipOnBoard, receiveAttack, shipCords, cordsBeenHit };
+  return { board, placeShipOnBoard, receiveAttack, shipCords, cordsBeenHit };
 };
 
 //player factory
 const Player = (name) => {
   return {
     name,
-    board: Gameboard(),
+    gameboard: Gameboard(),
   };
 };
 

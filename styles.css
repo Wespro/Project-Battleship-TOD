@@ -1,0 +1,83 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+button {
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 14px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+button:hover {
+  filter: brightness(1.2);
+}
+body {
+  background-image: linear-gradient(to right, rgb(137, 3, 61), rgb(82, 0, 203));
+}
+header h1 {
+  text-align: center;
+  margin: 2rem 0 3rem;
+  color: aliceblue;
+  text-shadow: 3px 3px 5px black;
+}
+.boards {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.yourBoardCont {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+}
+.youBoard {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  border-radius: 14px;
+  align-content: center;
+}
+.youBoardHeader {
+  text-align: center;
+  color: aliceblue;
+  text-shadow: 1px 2px 8px black;
+}
+
+.computerBoardCont {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+}
+.computerBoard {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  border-radius: 14px;
+  align-content: center;
+}
+.computerBoardHeader {
+  text-align: center;
+  color: aliceblue;
+  text-shadow: 1px 2px 5px black;
+}
+.cell {
+  width: 2rem;
+  height: 2rem;
+  background-color: rgb(255, 255, 255);
+  border: 0.1px groove rgb(4, 101, 143);
+}
+
+.cell:hover {
+  background-color: rgb(204, 204, 204);
+  cursor: pointer;
+}

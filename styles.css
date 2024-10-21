@@ -27,6 +27,8 @@ button:hover {
 }
 body {
   background-image: linear-gradient(to right, rgb(137, 3, 61), rgb(82, 0, 203));
+  display: grid;
+  grid-template-rows: 1fr 5fr 1fr;
 }
 header h1 {
   text-align: center;
@@ -61,9 +63,9 @@ main {
   align-content: center;
   transition: 200ms ease-in-out;
 }
-.youBoard:hover {
+/* .youBoard:hover {
   transform: scale(1.02);
-}
+} */
 .youBoardHeader {
   text-align: center;
   color: aliceblue;
@@ -85,9 +87,9 @@ main {
   align-content: center;
   transition: 200ms ease;
 }
-.computerBoard:hover {
+/* .computerBoard:hover {
   transform: scale(1.02);
-}
+} */
 .computerBoardHeader {
   text-align: center;
   color: aliceblue;
@@ -98,11 +100,13 @@ main {
   height: 2rem;
   background-color: rgb(255, 255, 255);
   border: 0.1px groove rgb(4, 101, 143);
+  transition: 200ms ease;
 }
 
 .cell:hover {
   background-color: rgb(204, 204, 204);
   cursor: pointer;
+  transform: scale(1.2);
 }
 .a1 {
   border-top-left-radius: 10px 10px;
@@ -127,6 +131,7 @@ main {
 }
 
 .play {
+  align-self: flex-start;
   background-color: rgb(0, 193, 61);
 }
 .shuffle {
@@ -139,10 +144,11 @@ main {
 }
 
 footer {
-  margin: 2rem 0 1rem;
+  margin: 1rem 0;
   display: flex;
   gap: 1rem;
   color: aliceblue;
   text-shadow: 1px 2px 8px black;
   justify-content: center;
+  align-items: flex-end;
 }

@@ -43,7 +43,7 @@ const Gameboard = () => {
     } else if (ship.length === 4) {
       ships.fourSquare.push(ship);
     }
-    console.log(shipsCords, ships);
+
     const shipcords = [];
     cords.forEach((cord) => {
       for (let boardCord of board) {

@@ -140,7 +140,7 @@ export default (function () {
   };
 
   const reShuffle = (playerObj, playerName, playerCont) => {
-    if (playerName === "plyer1 ") {
+    if (playerName === "player1") {
       resetBoardData(playerObj);
       resetBoardDataDomPlayer1(playerName);
       shuffleShipstToBoardDomPlayer1(playerObj, playerName, playerCont);

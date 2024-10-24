@@ -1,14 +1,7 @@
 import { Ship, Gameboard, Player } from "../index.js";
-import player1 from "./player1.js";
-
+import displayAxes from "./displayAxes.js";
 export default (function computer() {
-  const play = document.querySelector(".play");
-  const shuffle = document.querySelector(".shuffle");
-  const reset = document.querySelector(".reset");
-
   const computer = Player("Computer");
-
-  const footer = document.querySelector("footer");
 
   const computerBoardCont = document.querySelector(".computerBoardCont");
 
@@ -41,13 +34,8 @@ export default (function computer() {
       }
     });
 
-    play.style.display = "none";
-    shuffle.style.display = "inline";
-    reset.style.display = "inline";
-    footer.style.alignItems = "start";
-
-    // player1.displayRowsNames();
-    // player1.displayColmunsNames();
+    displayAxes.displayRowsNames();
+    displayAxes.displayColmunsNames();
   };
 
   const resetBoard = () => {

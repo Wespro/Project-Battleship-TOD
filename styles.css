@@ -167,6 +167,11 @@ main {
   align-self: flex-start;
   background-color: rgb(0, 193, 61);
 }
+.start {
+  align-self: flex-start;
+  background-color: rgb(0, 193, 61);
+  display: none;
+}
 .shuffle {
   background-color: rgb(143, 143, 143);
   display: none;

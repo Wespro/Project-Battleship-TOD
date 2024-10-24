@@ -46,8 +46,8 @@ export default (function computer() {
     reset.style.display = "inline";
     footer.style.alignItems = "start";
 
-    player1.displayRowsNames();
-    player1.displayColmunsNames();
+    // player1.displayRowsNames();
+    // player1.displayColmunsNames();
   };
 
   const resetBoard = () => {
@@ -55,6 +55,7 @@ export default (function computer() {
   };
 
   return {
+    computer,
     startTheBoard,
     resetBoard,
   };

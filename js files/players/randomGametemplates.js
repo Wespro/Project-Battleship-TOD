@@ -132,14 +132,14 @@ export default function () {
 
   const synario4 = {
     one: [
-      ["f", 4],
+      ["a", 4],
       ["j", 2],
-      ["a", 10],
+      ["c", 1],
       ["d", 10],
     ],
     tow: [
       [
-        ["h", 6],
+        ["i", 7],
         ["j", 7],
       ],
 
@@ -253,10 +253,10 @@ export default function () {
       ],
     ],
     four: [
-      ["c", 2],
-      ["d", 2],
-      ["e", 2],
-      ["f", 2],
+      ["c", 9],
+      ["d", 9],
+      ["e", 9],
+      ["f", 9],
     ],
   };
   randomSynarios.push(

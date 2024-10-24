@@ -27,12 +27,13 @@ button:hover {
 }
 body {
   background-image: linear-gradient(to right, rgb(137, 3, 61), rgb(82, 0, 203));
+
   display: grid;
   grid-template-rows: 1fr 5fr 1fr;
 }
 header h1 {
   text-align: center;
-  margin: 1rem 0 2rem;
+  margin: 1rem 0 2.6rem;
   color: aliceblue;
   text-shadow: 3px 3px 5px black;
 }
@@ -43,8 +44,8 @@ main {
 .boards {
   display: flex;
   justify-content: center;
-  gap: 2rem;
-  justify-content: space-around;
+  gap: 3rem;
+  justify-content: space-evenly;
   align-items: center;
   flex-wrap: wrap;
 }
@@ -58,14 +59,15 @@ main {
 .youBoard {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
   border-radius: 14px;
   align-content: center;
   transition: 200ms ease-in-out;
 }
-/* .youBoard:hover {
+
+.youBoard:hover {
   transform: scale(1.02);
-} */
+}
 .youBoardHeader {
   text-align: center;
   color: aliceblue;
@@ -82,14 +84,12 @@ main {
 .computerBoard {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
   border-radius: 14px;
   align-content: center;
   transition: 200ms ease;
 }
-/* .computerBoard:hover {
-  transform: scale(1.02);
-} */
+
 .computerBoardHeader {
   text-align: center;
   color: aliceblue;
@@ -103,7 +103,7 @@ main {
   transition: 200ms ease;
 }
 
-.cell:hover {
+.cell.computer:hover {
   background-color: rgb(204, 204, 204);
   cursor: pointer;
   transform: scale(1.2);
@@ -112,14 +112,47 @@ main {
   border-top-left-radius: 10px 10px;
 }
 .a10 {
-  border-top-right-radius: 10px 10px;
+  border-bottom-left-radius: 10px 10px;
 }
 
 .j1 {
-  border-bottom-left-radius: 10px 10px;
+  border-top-right-radius: 10px 10px;
 }
 .j10 {
   border-bottom-right-radius: 10px 10px;
+}
+.a,
+.b,
+.c,
+.d,
+.e,
+.f,
+.g,
+.h,
+.i,
+.j {
+  position: absolute;
+  transform: translate(10px, -30px);
+  color: aliceblue;
+  font-size: 1.1rem;
+}
+.one,
+.tow,
+.three,
+.four,
+.five,
+.six,
+.seven,
+.eight,
+.nine,
+.ten {
+  position: absolute;
+  transform: translate(-25px, 0);
+  color: aliceblue;
+  font-size: 1.1rem;
+}
+.ten {
+  transform: translate(-30px, 0);
 }
 .controls {
   margin: 1rem;

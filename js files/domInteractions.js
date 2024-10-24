@@ -10,7 +10,14 @@ export default (function () {
     player1.startTheBoard();
     computer.startTheBoard();
   });
-
+  shuffle.addEventListener("click", () => {
+    if (shuffle.classList.contains("clicked")) {
+      player1.reShuffle();
+    } else {
+      player1.shuffleShipstToBoardDom();
+      shuffle.classList.add("clicked");
+    }
+  });
   reset.addEventListener("click", () => {
     player1.resetBoard();
     computer.resetBoard();

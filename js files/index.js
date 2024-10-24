@@ -17,7 +17,13 @@ const Gameboard = () => {
   const horizontal = "abcdefghij";
   const horizontalGrid = horizontal.split("");
   const board = [];
-  const shipCords = [];
+  const shipsCords = [];
+  const ships = {
+    oneSquare: [],
+    towSquare: [],
+    threeSquare: [],
+    fourSquare: [],
+  };
   const cordsBeenHit = [];
   // getting the board
   horizontalGrid.forEach((item) => {
@@ -27,7 +33,18 @@ const Gameboard = () => {
   });
   //placeing ships on board
   const placeShipOnBoard = (...cords) => {
-    const ship = [];
+    const ship = Ship(cords.length);
+    if (ship.length === 1) {
+      ships.oneSquare.push(ship);
+    } else if (ship.length === 2) {
+      ships.towSquare.push(ship);
+    } else if (ship.length === 3) {
+      ships.threeSquare.push(ship);
+    } else if (ship.length === 4) {
+      ships.fourSquare.push(ship);
+    }
+    console.log(shipsCords, ships);
+    const shipcords = [];
     cords.forEach((cord) => {
       for (let boardCord of board) {
         //compare 2 array together with Json.stringfy
@@ -35,12 +52,13 @@ const Gameboard = () => {
           boardCord.occupied = true;
           //new property
           boardCord.attacked = false;
-          ship.push(boardCord);
+          shipcords.push(boardCord.cord);
+          shipsCords.push(boardCord.cord);
         }
       }
     });
-    shipCords.push(ship);
-    return ship;
+
+    // return ship;
   };
 
   const receiveAttack = (cord) => {
@@ -55,7 +73,14 @@ const Gameboard = () => {
     return hitCord;
   };
 
-  return { board, placeShipOnBoard, receiveAttack, shipCords, cordsBeenHit };
+  return {
+    board,
+    placeShipOnBoard,
+    receiveAttack,
+    shipsCords,
+    ships,
+    cordsBeenHit,
+  };
 };
 
 //player factory

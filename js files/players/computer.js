@@ -41,10 +41,54 @@ export default (function computer() {
   const resetBoard = () => {
     computerBoardCont.replaceChildren();
   };
+  const computerAttackDom = (cell, callBack) => {
+    const board = document.querySelectorAll(`.cell.player1`);
+    const randomCord = board[Math.floor(Math.random() * 100)];
+    const gameStatus = document.querySelector(".gameStatus");
+
+    const attack = () => {
+      if (!randomCord.classList.contains("attacked")) {
+        if (randomCord.classList.contains("occupied")) {
+          const hit = document.createElement("span");
+          hit.classList.add(`hit`);
+          hit.textContent = "X";
+          randomCord.append(hit);
+        }
+        randomCord.classList.add("attacked");
+        randomCord.disabled = true;
+        randomCord.classList.add("disabled");
+
+        gameStatus.textContent = "Your turn";
+        callBack();
+      } else {
+        computerAttackDom(cell, callBack);
+      }
+    };
+    setTimeout(attack, 1000);
+  };
+
+  const shipsStatusDom = () => {
+    const shipscords = computer.gameboard.shipsCords;
+    let shipsHits = 0;
+    shipscords.forEach((cord) => {
+      const boardCord = document.querySelector(
+        `.${cord[0]}${cord[1]}.computer`
+      );
+
+      if (boardCord.classList.contains("attacked")) {
+        shipsHits += 1;
+      }
+    });
+    if (shipsHits === 20) {
+      return "Plater1 Wins";
+    }
+  };
 
   return {
     computer,
     startTheBoard,
     resetBoard,
+    computerAttackDom,
+    shipsStatusDom,
   };
 })();

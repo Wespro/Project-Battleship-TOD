@@ -115,7 +115,7 @@ export default (function () {
       );
       domCords.forEach((domCord) => {
         domCord.classList.add("occupied");
-        domCord.style.backgroundColor = "purple";
+        domCord.style.backgroundColor = "#201E43";
       });
     });
   };

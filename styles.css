@@ -29,7 +29,8 @@ body {
   background-image: linear-gradient(to right, rgb(137, 3, 61), rgb(82, 0, 203));
 
   display: grid;
-  grid-template-rows: 1fr 5fr 1fr;
+  grid-template-rows: 1fr 4fr 1fr;
+  transition: all 200ms ease;
 }
 header h1 {
   text-align: center;
@@ -44,7 +45,7 @@ main {
 .boards {
   display: flex;
   justify-content: center;
-  gap: 3rem;
+  gap: 4rem;
   justify-content: space-evenly;
   align-items: center;
   flex-wrap: wrap;
@@ -73,7 +74,13 @@ main {
   color: aliceblue;
   text-shadow: 1px 2px 8px black;
 }
-
+.gameStatus {
+  text-align: center;
+  margin: 1rem 0 2.6rem;
+  color: aliceblue;
+  text-shadow: 3px 3px 5px black;
+  visibility: hidden;
+}
 .computerBoardCont {
   display: flex;
   flex-direction: column;
@@ -87,7 +94,6 @@ main {
   grid-template-rows: 1fr;
   border-radius: 14px;
   align-content: center;
-  transition: 200ms ease;
 }
 
 .computerBoardHeader {
@@ -101,13 +107,15 @@ main {
   background-color: rgb(255, 255, 255);
   border: 0.1px groove rgb(4, 101, 143);
   transition: 200ms ease;
+  cursor: pointer;
 }
 
 .cell.computer:hover {
   background-color: rgb(204, 204, 204);
-  cursor: pointer;
+
   transform: scale(1.2);
 }
+
 .a1 {
   border-top-left-radius: 10px 10px;
 }
@@ -154,18 +162,42 @@ main {
 .ten {
   transform: translate(-30px, 0);
 }
+.hit {
+  color: red;
+  font-size: 1.8rem;
+  display: flex;
+  justify-content: center;
+}
 .controls {
-  margin: 1rem;
+  margin: 0.5rem;
   display: flex;
   gap: 1.5rem;
   flex-direction: row-reverse;
   align-items: center;
   justify-content: center;
 }
+.gameTypeControls {
+  display: flex;
+  gap: 5rem;
+  flex-direction: row-reverse;
+  align-items: center;
 
-.play {
+  align-self: start;
+}
+.play1v1 {
   align-self: flex-start;
   background-color: rgb(0, 193, 61);
+}
+.playVsComputer {
+  align-self: flex-start;
+  background-color: rgb(0, 193, 61);
+}
+.gameControls {
+  display: flex;
+  gap: 1.5rem;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: center;
 }
 .start {
   align-self: flex-start;
@@ -181,6 +213,15 @@ main {
   display: none;
 }
 
+.disabled {
+  cursor: not-allowed;
+  filter: brightness(0.8);
+}
+
+.disabledDarker {
+  cursor: not-allowed;
+  filter: brightness(0.7);
+}
 footer {
   margin: 1rem 0;
   display: flex;

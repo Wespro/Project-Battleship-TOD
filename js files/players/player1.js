@@ -41,10 +41,41 @@ export default (function player1() {
   const resetBoard = () => {
     yourBoardCont.replaceChildren();
   };
+  const player1AttackDom = (cell) => {
+    if (!cell.classList.contains("attacked")) {
+      if (cell.classList.contains("occupied")) {
+        const hit = document.createElement("span");
+        hit.classList.add(`hit`);
+        hit.textContent = "X";
+        hit.style.color = "red";
+        cell.append(hit);
+      }
+      cell.classList.add("attacked");
+      cell.disabled = true;
+      cell.classList.add("disabled");
+    }
+  };
+  const shipsStatusDom = () => {
+    const shipscords = player1.gameboard.shipsCords;
+    let shipsHits = 0;
+
+    shipscords.forEach((cord) => {
+      const boardCord = document.querySelector(`.${cord[0]}${cord[1]}.player1`);
+
+      if (boardCord.classList.contains("attacked")) {
+        shipsHits += 1;
+      }
+    });
+    if (shipsHits === 20) {
+      return "Computer Wins";
+    }
+  };
 
   return {
     player1,
     startTheBoard,
     resetBoard,
+    player1AttackDom,
+    shipsStatusDom,
   };
 })();

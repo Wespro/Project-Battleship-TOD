@@ -1,7 +1,7 @@
-import player1 from "./players/player1.js";
-import player2 from "./players/player2.js";
-import computer from "./players/computer.js";
-import shuffleBoards from "./players/shuffleBoards.js";
+import player1 from "../players/player1.js";
+import player2 from "../players/player2.js";
+import computer from "../players/computer.js";
+import shuffleBoards from "./shuffleBoards.js";
 
 export default (function () {
   const play1v1Btn = document.querySelector(".play1v1Btn");

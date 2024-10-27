@@ -1,5 +1,5 @@
-import { Ship, Gameboard, Player } from "../index.js";
-import displayAxes from "./displayAxes.js";
+import { Player } from "../index.js";
+import displayAxes from "../Game Related/displayAxes.js";
 export default (function player2() {
   const player2 = Player("Player2");
 

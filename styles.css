@@ -236,7 +236,8 @@ main {
 
 .disabled {
   cursor: not-allowed;
-  filter: brightness(0.8);
+  filter: brightness(0.7);
+  border: 2px solid red;
 }
 
 .disabledDarker {

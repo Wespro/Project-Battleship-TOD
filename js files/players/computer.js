@@ -79,7 +79,7 @@ export default (function computer() {
         shipsHits += 1;
       }
     });
-    console.log(shipsHits);
+
     if (shipsHits >= 20) {
       return "Player1 Wins";
     }

@@ -2,8 +2,6 @@ import randomGametemplates from "./randomGametemplates.js";
 
 export default (function () {
   const shuffleShipstToBoard = (playerObj, playerCont) => {
-    console.log(playerObj, playerCont, playerCont.classList);
-
     const randomGamesynarios = randomGametemplates();
     let randomDice = Math.floor(Math.random() * 6);
 

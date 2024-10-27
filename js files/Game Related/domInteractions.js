@@ -9,7 +9,7 @@ export default (function () {
   const start = document.querySelector(".start");
   const shuffle = document.querySelector(".shuffle");
   const reset = document.querySelector(".reset");
-  const footer = document.querySelector("footer");
+  const back = document.querySelector(".back");
   const gameStatus = document.querySelector(".gameStatus");
 
   const player1BoardCont = document.querySelector(".player1BoardCont");
@@ -36,10 +36,9 @@ export default (function () {
     start.style.display = "inline";
     shuffle.style.display = "inline";
     reset.style.display = "inline";
+    back.style.display = "inline";
     reset.disabled = true;
     reset.classList.add("disabled");
-
-    footer.style.alignItems = "start";
 
     gameStatus.style.visibility = "visible";
 
@@ -69,10 +68,9 @@ export default (function () {
     start.style.display = "inline";
     shuffle.style.display = "inline";
     reset.style.display = "inline";
+    back.style.display = "inline";
     reset.disabled = true;
     reset.classList.add("disabled");
-
-    footer.style.alignItems = "start";
 
     gameStatus.style.visibility = "visible";
 
@@ -121,6 +119,10 @@ export default (function () {
         );
       }
     } else {
+      gameStatus.textContent = "Shuffled";
+      setTimeout(() => {
+        gameStatus.textContent = "Start the game..";
+      }, 500);
       if (shuffle.classList.contains("clicked")) {
         shuffleBoards.reShuffle(
           player1.player1,
@@ -153,6 +155,9 @@ export default (function () {
   });
   reset.addEventListener("click", () => {
     if (player2BoardCont.style.display === "none") {
+      player1.resetBoard();
+      computer.resetBoard();
+
       player1.startTheBoard();
       computer.startTheBoard();
       shuffleBoards.reShuffle(player1.player1, "player1", player1BoardCont);
@@ -191,6 +196,9 @@ export default (function () {
     shuffle.style.display = "inline";
   });
 
+  back.addEventListener("click", () => {
+    location.reload();
+  });
   const computerBoardEventlisterns = () => {
     const computerBoard = document.querySelectorAll(".cell.computer");
     computerBoard.forEach((cell) => {

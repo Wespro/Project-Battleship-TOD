@@ -69,7 +69,8 @@ export default (function player1() {
   };
   const shipsStatusDom = (playerName) => {
     const shipscords = player1.gameboard.shipsCords;
-    let shipsHits = 0;
+    let shipsHits = 20
+    ;
 
     shipscords.forEach((cord) => {
       const boardCord = document.querySelector(`.${cord[0]}${cord[1]}.player1`);

@@ -85,6 +85,8 @@ export default (function () {
     reset.classList.remove("disabled");
     shuffle.disabled = true;
     shuffle.classList.add("disabled");
+    start.disabled = true;
+    start.classList.add("disabled");
 
     gameStatus.textContent = "Player1's turn";
     if (player2BoardCont.style.display === "none") {
@@ -193,6 +195,9 @@ export default (function () {
     reset.classList.add("disabled");
     gameStatus.textContent = " Start the game..";
     start.style.display = "inline";
+    start.disabled = false;
+    start.classList.remove("disabled");
+
     shuffle.style.display = "inline";
   });
 

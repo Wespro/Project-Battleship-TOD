@@ -3,14 +3,14 @@ import displayAxes from "./displayAxes.js";
 export default (function player1() {
   const player1 = Player("Player");
 
-  const yourBoardCont = document.querySelector(".yourBoardCont");
+  const player1BoardCont = document.querySelector(".player1BoardCont");
 
-  const startTheBoard = () => {
-    const youBoard = document.createElement("div");
-    const youBoardHeader = document.createElement("h2");
-    youBoard.classList.add("youBoard");
-    youBoardHeader.classList.add("youBoardHeader");
-    youBoardHeader.textContent = "Your Board";
+  const startTheBoard = (gameType) => {
+    const player1BoardDiv = document.createElement("div");
+    const player1BoardDivHeader = document.createElement("h2");
+    player1BoardDiv.classList.add("player1BoardDiv", gameType);
+    player1BoardDivHeader.classList.add("player1BoardDivHeader");
+    player1BoardDivHeader.textContent = "Player1 Board";
     const fragment = document.createDocumentFragment();
 
     for (let i = 1; i < 11; i++) {
@@ -19,8 +19,8 @@ export default (function player1() {
 
       fragment.append(coulmn);
     }
-    youBoard.append(fragment);
-    yourBoardCont.append(youBoard, youBoardHeader);
+    player1BoardDiv.append(fragment);
+    player1BoardCont.append(player1BoardDiv, player1BoardDivHeader);
 
     const coulmns = document.querySelectorAll(".coulmn");
     const rowletters = "abcdefghij";
@@ -29,7 +29,19 @@ export default (function player1() {
     coulmns.forEach((col, index) => {
       for (let i = 1; i < 11; i++) {
         const cell = document.createElement("div");
-        cell.classList.add(`${rowsArr[index]}${i}`, "cell", "player1");
+        gameType === "playVsComputer"
+          ? cell.classList.add(
+              `${rowsArr[index]}${i}`,
+              "cell",
+              "player1",
+              "playVsComputer"
+            )
+          : cell.classList.add(
+              `${rowsArr[index]}${i}`,
+              "cell",
+              "player1",
+              `${gameType}`
+            );
         col.append(cell);
       }
     });
@@ -39,7 +51,7 @@ export default (function player1() {
   };
 
   const resetBoard = () => {
-    yourBoardCont.replaceChildren();
+    player1BoardCont.replaceChildren();
   };
   const player1AttackDom = (cell) => {
     if (!cell.classList.contains("attacked")) {
@@ -55,7 +67,7 @@ export default (function player1() {
       cell.classList.add("disabled");
     }
   };
-  const shipsStatusDom = () => {
+  const shipsStatusDom = (playerName) => {
     const shipscords = player1.gameboard.shipsCords;
     let shipsHits = 0;
 
@@ -66,8 +78,13 @@ export default (function player1() {
         shipsHits += 1;
       }
     });
-    if (shipsHits === 20) {
-      return "Computer Wins";
+    if (shipsHits >= 20) {
+      if (playerName === "computer") {
+        console.log("here");
+        return "Computer Wins";
+      } else if (playerName === "player2") {
+        return "Player2 Wins";
+      }
     }
   };
 

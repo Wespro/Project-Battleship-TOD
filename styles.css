@@ -50,14 +50,14 @@ main {
   align-items: center;
   flex-wrap: wrap;
 }
-.yourBoardCont {
+.player1BoardCont {
   display: flex;
   flex-direction: column;
   gap: 1rem;
   justify-content: center;
   align-items: center;
 }
-.youBoard {
+.player1BoardDiv {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr;
@@ -66,10 +66,15 @@ main {
   transition: 200ms ease-in-out;
 }
 
-.youBoard:hover {
+.player1BoardDiv.playVsComputer:hover {
   transform: scale(1.02);
 }
-.youBoardHeader {
+.cell.play1v1:hover {
+  background-color: rgb(204, 204, 204);
+
+  transform: scale(1.2);
+}
+.player1BoardDivHeader {
   text-align: center;
   color: aliceblue;
   text-shadow: 1px 2px 8px black;
@@ -81,14 +86,16 @@ main {
   text-shadow: 3px 3px 5px black;
   visibility: hidden;
 }
-.computerBoardCont {
+.computerBoardCont,
+.player2BoardCont {
   display: flex;
   flex-direction: column;
   gap: 1rem;
   justify-content: center;
   align-items: center;
 }
-.computerBoard {
+.computerBoard,
+.player2Board {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr;
@@ -96,7 +103,8 @@ main {
   align-content: center;
 }
 
-.computerBoardHeader {
+.computerBoardHeader,
+.player2BoardHeader {
   text-align: center;
   color: aliceblue;
   text-shadow: 1px 2px 5px black;
@@ -111,6 +119,11 @@ main {
 }
 
 .cell.computer:hover {
+  background-color: rgb(204, 204, 204);
+
+  transform: scale(1.2);
+}
+.cell.player2:hover {
   background-color: rgb(204, 204, 204);
 
   transform: scale(1.2);
@@ -184,11 +197,11 @@ main {
 
   align-self: start;
 }
-.play1v1 {
+.play1v1Btn {
   align-self: flex-start;
   background-color: rgb(0, 193, 61);
 }
-.playVsComputer {
+.playVsComputerBtn {
   align-self: flex-start;
   background-color: rgb(0, 193, 61);
 }

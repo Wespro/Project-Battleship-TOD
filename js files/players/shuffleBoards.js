@@ -1,6 +1,9 @@
 import randomGametemplates from "./randomGametemplates.js";
+
 export default (function () {
   const shuffleShipstToBoard = (playerObj, playerCont) => {
+    console.log(playerObj, playerCont, playerCont.classList);
+
     const randomGamesynarios = randomGametemplates();
     let randomDice = Math.floor(Math.random() * 6);
 
@@ -16,10 +19,10 @@ export default (function () {
       });
       playerObj.gameboard.placeShipOnBoard(...randomGamesynarios[0].four);
 
-      if (playerCont.classList[1]) {
-        playerCont.classList.remove(playerCont.classList[1]);
+      if (playerCont.id) {
+        playerCont.id = "";
       }
-      playerCont.classList.add("synario1");
+      playerCont.id = "synario1";
     } else if (randomDice === 1 && !playerCont.classList.contains("synario2")) {
       randomGamesynarios[1].one.forEach((cord) => {
         playerObj.gameboard.placeShipOnBoard(cord);
@@ -31,10 +34,10 @@ export default (function () {
         playerObj.gameboard.placeShipOnBoard(...cord);
       });
       playerObj.gameboard.placeShipOnBoard(...randomGamesynarios[1].four);
-      if (playerCont.classList[1]) {
-        playerCont.classList.remove(playerCont.classList[1]);
+      if (playerCont.id) {
+        playerCont.id = "";
       }
-      playerCont.classList.add("synario2");
+      playerCont.id = "synario2";
     } else if (randomDice === 2 && !playerCont.classList.contains("synario3")) {
       randomGamesynarios[2].one.forEach((cord) => {
         playerObj.gameboard.placeShipOnBoard(cord);
@@ -46,10 +49,10 @@ export default (function () {
         playerObj.gameboard.placeShipOnBoard(...cord);
       });
       playerObj.gameboard.placeShipOnBoard(...randomGamesynarios[2].four);
-      if (playerCont.classList[1]) {
-        playerCont.classList.remove(playerCont.classList[1]);
+      if (playerCont.id) {
+        playerCont.id = "";
       }
-      playerCont.classList.add("synario3");
+      playerCont.id = "synario3";
     } else if (randomDice === 3 && !playerCont.classList.contains("synario4")) {
       randomGamesynarios[3].one.forEach((cord) => {
         playerObj.gameboard.placeShipOnBoard(cord);
@@ -61,10 +64,10 @@ export default (function () {
         playerObj.gameboard.placeShipOnBoard(...cord);
       });
       playerObj.gameboard.placeShipOnBoard(...randomGamesynarios[3].four);
-      if (playerCont.classList[1]) {
-        playerCont.classList.remove(playerCont.classList[1]);
+      if (playerCont.id) {
+        playerCont.id = "";
       }
-      playerCont.classList.add("synario4");
+      playerCont.id = "synario4";
     } else if (randomDice === 4 && !playerCont.classList.contains("synario5")) {
       randomGamesynarios[4].one.forEach((cord) => {
         playerObj.gameboard.placeShipOnBoard(cord);
@@ -76,10 +79,10 @@ export default (function () {
         playerObj.gameboard.placeShipOnBoard(...cord);
       });
       playerObj.gameboard.placeShipOnBoard(...randomGamesynarios[4].four);
-      if (playerCont.classList[1]) {
-        playerCont.classList.remove(playerCont.classList[1]);
+      if (playerCont.id) {
+        playerCont.id = "";
       }
-      playerCont.classList.add("synario5");
+      playerCont.id = "synario5";
     } else if (randomDice === 5 && !playerCont.classList.contains("synario6")) {
       randomGamesynarios[5].one.forEach((cord) => {
         playerObj.gameboard.placeShipOnBoard(cord);
@@ -91,10 +94,10 @@ export default (function () {
         playerObj.gameboard.placeShipOnBoard(...cord);
       });
       playerObj.gameboard.placeShipOnBoard(...randomGamesynarios[5].four);
-      if (playerCont.classList[1]) {
-        playerCont.classList.remove(playerCont.classList[1]);
+      if (playerCont.id) {
+        playerCont.id = "";
       }
-      playerCont.classList.add("synario6");
+      playerCont.id = "synario6";
     } else {
       shuffleShipstToBoard(playerObj, playerCont);
     }
@@ -103,7 +106,8 @@ export default (function () {
   const shuffleShipstToBoardDomPlayer1 = (
     playerObj,
     playerName,
-    playerCont
+    playerCont,
+    gameType
   ) => {
     shuffleShipstToBoard(playerObj, playerCont);
 
@@ -115,7 +119,7 @@ export default (function () {
       );
       domCords.forEach((domCord) => {
         domCord.classList.add("occupied");
-        domCord.style.backgroundColor = "#201E43";
+        gameType ? "" : (domCord.style.backgroundColor = "#201E43");
       });
     });
   };
@@ -139,15 +143,43 @@ export default (function () {
     });
   };
 
-  const reShuffle = (playerObj, playerName, playerCont) => {
+  const shuffleShipstToBoardDomPlayer2 = (
+    playerObj,
+    playerName,
+    playerCont
+  ) => {
+    shuffleShipstToBoard(playerObj, playerCont);
+
+    const shipsCords = playerObj.gameboard.shipsCords;
+
+    shipsCords.forEach((cord) => {
+      const domCords = document.querySelectorAll(
+        `.${cord[0]}${cord[1]}.${playerName}`
+      );
+      domCords.forEach((domCord) => {
+        domCord.classList.add("occupied");
+      });
+    });
+  };
+
+  const reShuffle = (playerObj, playerName, playerCont, gameType) => {
     if (playerName === "player1") {
       resetBoardData(playerObj);
       resetBoardDataDomPlayer1(playerName);
-      shuffleShipstToBoardDomPlayer1(playerObj, playerName, playerCont);
-    } else {
+      shuffleShipstToBoardDomPlayer1(
+        playerObj,
+        playerName,
+        playerCont,
+        gameType
+      );
+    } else if (playerName === "computer") {
       resetBoardData(playerObj);
       resetBoardDataDomComputer(playerName);
       shuffleShipstToBoardDomComputer(playerObj, playerName, playerCont);
+    } else {
+      resetBoardData(playerObj);
+      resetBoardDataDomPlayer2(playerName);
+      shuffleShipstToBoardDomPlayer2(playerObj, playerName, playerCont);
     }
   };
 
@@ -176,9 +208,18 @@ export default (function () {
       cell.classList.remove("occupied");
     });
   };
+  const resetBoardDataDomPlayer2 = (playerName) => {
+    const playerBoard = document.querySelectorAll(`.cell.${playerName}`);
+
+    playerBoard.forEach((cell) => {
+      cell.classList.remove("occupied");
+      cell.style.backgroundColor = "rgb(255, 255, 255)";
+    });
+  };
   return {
     shuffleShipstToBoardDomPlayer1,
     shuffleShipstToBoardDomComputer,
+    shuffleShipstToBoardDomPlayer2,
     reShuffle,
   };
 })();

@@ -4,8 +4,10 @@ export default (function computer() {
   const computer = Player("Computer");
 
   const computerBoardCont = document.querySelector(".computerBoardCont");
+  const player2BoardCont = document.querySelector(".player2BoardCont");
 
   const startTheBoard = () => {
+    player2BoardCont.style.display = "none";
     const computerBoard = document.createElement("div");
     const computerBoardHeader = document.createElement("h2");
     computerBoard.classList.add("computerBoard");
@@ -45,7 +47,7 @@ export default (function computer() {
     const board = document.querySelectorAll(`.cell.player1`);
     const randomCord = board[Math.floor(Math.random() * 100)];
     const gameStatus = document.querySelector(".gameStatus");
-
+    gameStatus.textContent = "Your turn";
     const attack = () => {
       if (!randomCord.classList.contains("attacked")) {
         if (randomCord.classList.contains("occupied")) {
@@ -58,13 +60,12 @@ export default (function computer() {
         randomCord.disabled = true;
         randomCord.classList.add("disabled");
 
-        gameStatus.textContent = "Your turn";
         callBack();
       } else {
         computerAttackDom(cell, callBack);
       }
     };
-    setTimeout(attack, 1000);
+    setTimeout(attack, 500);
   };
 
   const shipsStatusDom = () => {
@@ -74,13 +75,13 @@ export default (function computer() {
       const boardCord = document.querySelector(
         `.${cord[0]}${cord[1]}.computer`
       );
-
       if (boardCord.classList.contains("attacked")) {
         shipsHits += 1;
       }
     });
-    if (shipsHits === 20) {
-      return "Plater1 Wins";
+    console.log(shipsHits);
+    if (shipsHits >= 20) {
+      return "Player1 Wins";
     }
   };
 

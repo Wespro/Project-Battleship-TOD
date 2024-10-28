@@ -47,7 +47,7 @@ export default (function computer() {
     const board = document.querySelectorAll(`.cell.player1`);
     const randomCord = board[Math.floor(Math.random() * 100)];
     const gameStatus = document.querySelector(".gameStatus");
-    gameStatus.textContent = "Your turn";
+
     const attack = () => {
       if (!randomCord.classList.contains("attacked")) {
         if (randomCord.classList.contains("occupied")) {
@@ -59,6 +59,7 @@ export default (function computer() {
         randomCord.classList.add("attacked");
         randomCord.disabled = true;
         randomCord.classList.add("disabled");
+        gameStatus.textContent = "Player1's turn";
 
         callBack();
       } else {

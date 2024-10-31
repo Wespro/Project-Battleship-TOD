@@ -1,5 +1,8 @@
 import { Player } from "../index.js";
 import displayAxes from "../Game Related/displayAxes.js";
+import fillingBoxOfShipsDom from "../Game Related/fillingBoxOfShipsDom.js";
+import player2 from "./player2.js";
+
 export default (function player1() {
   const player1 = Player("Player");
 
@@ -53,6 +56,115 @@ export default (function player1() {
   const resetBoard = () => {
     player1BoardCont.replaceChildren();
   };
+  const placeBoardPlayer1Fn = () => {
+    fillingBoxOfShipsDom(1);
+    let shipBlocksNum = 0;
+    const dropArea = [];
+    let currentShip;
+    const ships = document.querySelectorAll(".ship.player1");
+    const board1Cells = document.querySelectorAll(`.cell.player1`);
+    ships.forEach((ship) => {
+      ship.addEventListener("dragstart", (e) => {
+        if (ship.children.length === 0) {
+          shipBlocksNum = 1;
+        } else {
+          shipBlocksNum = ship.children.length;
+        }
+
+        currentShip = ship;
+        ship.classList.add("dragging");
+      });
+    });
+    ships.forEach((ship) => {
+      ship.addEventListener("dragend", (e) => {
+        ship.classList.remove("dragging");
+      });
+    });
+    board1Cells.forEach((cell, index) => {
+      cell.addEventListener("dragover", (e) => {
+        let count = 10;
+        e.preventDefault();
+        if (!dropArea.includes(e.target)) {
+          dropArea.push(e.target);
+        }
+        for (let i = 1; i < shipBlocksNum; i++) {
+          if (
+            !dropArea.includes(board1Cells[index + count]) &&
+            board1Cells[index + count]
+          ) {
+            dropArea.push(board1Cells[index + count]);
+          }
+          count += 10;
+        }
+        if (dropArea.length === shipBlocksNum) {
+          dropArea.forEach((element) => {
+            element.classList.add("dragging");
+          });
+        } else {
+          dropArea.length = 0;
+        }
+      });
+    });
+    board1Cells.forEach((cell) => {
+      cell.addEventListener("dragleave", (e) => {
+        dropArea.forEach((element) => {
+          setTimeout(() => {
+            element.classList.remove("dragging");
+          }, 100);
+        });
+        dropArea.length = 0;
+      });
+    });
+    board1Cells.forEach((cell) => {
+      cell.addEventListener("drop", (e) => {
+        const isCellsOccupied = dropArea.filter((ele) => {
+          return ele.classList.contains("occupied");
+        });
+
+        dropArea.forEach((element) => {
+          element.classList.remove("dragging");
+        });
+        console.log(dropArea.length, shipBlocksNum);
+        if (dropArea.length === shipBlocksNum) {
+          console.log("first");
+          if (isCellsOccupied.length === 0) {
+            console.log("sec");
+            dropArea.forEach((element) => {
+              element.classList.add("occupied");
+              element.classList.add("shipColor");
+              element.style.pointerEvents = "none";
+              currentShip.style.display = "none";
+            });
+            isShipsBoxEmpty();
+          } else {
+            alert("Area is Occupied");
+          }
+        } else {
+          alert("Ship Size exceedes the border of board");
+        }
+        shipBlocksNum = 0;
+        dropArea.length = 0;
+      });
+    });
+  };
+  const isShipsBoxEmpty = () => {
+    const ships = document.querySelectorAll(".ship.player1");
+    const shipsArr = [...ships];
+    const shipsOffBoard = shipsArr.filter((ship) => {
+      return ship.style.display === "none";
+    });
+    if (shipsOffBoard.length >= 10) {
+      exitShipBox();
+    }
+  };
+  const exitShipBox = () => {
+    const BoxOfShipsPlayer1 = document.querySelector(".BoxOfShipsPlayer1");
+    const gameControls = document.querySelector(".gameControls");
+    gameControls.style.display = "grid";
+    BoxOfShipsPlayer1.style.display = "none";
+    player1BoardHold();
+  };
+
   const player1AttackDom = (cell) => {
     if (!cell.classList.contains("attacked")) {
       if (cell.classList.contains("occupied")) {
@@ -79,19 +191,31 @@ export default (function player1() {
     });
     if (shipsHits >= 20) {
       if (playerName === "computer") {
-        console.log("here");
         return "Computer Wins";
       } else if (playerName === "player2") {
         return "Player2 Wins";
       }
     }
   };
-
+  const player1BoardHold = () => {
+    player1BoardCont.disabled = true;
+    player1BoardCont.style.pointerEvents = "none";
+    player1BoardCont.classList.add("disabledDarker");
+  };
+  const player1BoardUnHold = () => {
+    player1BoardCont.style.pointerEvents = "auto";
+    player1BoardCont.disabled = false;
+    player1BoardCont.classList.remove("disabledDarker");
+  };
   return {
     player1,
     startTheBoard,
     resetBoard,
+    placeBoardPlayer1Fn,
     player1AttackDom,
     shipsStatusDom,
+    player1BoardHold,
+    player1BoardUnHold,
+    exitShipBox,
   };
 })();

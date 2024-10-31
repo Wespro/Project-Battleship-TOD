@@ -4,11 +4,17 @@ import computer from "../players/computer.js";
 import shuffleBoards from "./shuffleBoards.js";
 
 export default (function () {
+  const gameControls = document.querySelector(".gameControls");
   const play1v1Btn = document.querySelector(".play1v1Btn");
   const playVsComputerBtn = document.querySelector(".playVsComputerBtn");
   const start = document.querySelector(".start");
   const shuffle = document.querySelector(".shuffle");
   const reset = document.querySelector(".reset");
+  const placeBoardPlayer1 = document.querySelector(".placeBoardPlayer1");
+  const placeBoardPlayer2 = document.querySelector(".placeBoardPlayer2");
+  const BoxOfShipsPlayer1 = document.querySelector(".BoxOfShipsPlayer1");
+  const BoxOfShipsPlayer2 = document.querySelector(".BoxOfShipsPlayer2");
+  const closeIcons = document.querySelectorAll(".close");
   const back = document.querySelector(".back");
   const gameStatus = document.querySelector(".gameStatus");
 
@@ -36,6 +42,7 @@ export default (function () {
     start.style.display = "inline";
     shuffle.style.display = "inline";
     reset.style.display = "inline";
+    placeBoardPlayer1.style.display = "inline";
     back.style.display = "inline";
     reset.disabled = true;
     reset.classList.add("disabled");
@@ -45,6 +52,76 @@ export default (function () {
     shuffle.classList.add("clicked");
 
     computerBoardHold();
+  });
+
+  placeBoardPlayer1.addEventListener("click", () => {
+    shuffleBoards.resetBoardData(player1.player1);
+    shuffleBoards.resetBoardDataDomPlayer1("player1");
+    player1.player1BoardUnHold();
+    gameControls.style.display = "none";
+    BoxOfShipsPlayer1.style.display = "flex";
+    player1.placeBoardPlayer1Fn();
+  });
+
+  placeBoardPlayer2.addEventListener("click", () => {
+    shuffleBoards.resetBoardData(player2.player2);
+    shuffleBoards.resetBoardDataDomPlayer2("player2");
+    player2.player2BoardUnHold();
+    gameControls.style.display = "none";
+    BoxOfShipsPlayer2.style.display = "flex";
+    player2.placeBoardPlayer2Fn();
+  });
+
+  closeIcons.forEach((node) => {
+    node.addEventListener("click", () => {
+      if (BoxOfShipsPlayer1.style.display === "flex") {
+        const ships = document.querySelectorAll(".ship.player1");
+        const shipsArr = [...ships];
+        const shipsOffBoard = shipsArr.filter((ship) => {
+          return ship.style.display === "none";
+        });
+
+        if (shipsOffBoard.length < 10) {
+          let answer = prompt(
+            `Closing resets the place of ships..Do you want to porceed with closing?
+          (Yes,No)
+            `
+          );
+          answer.toLowerCase();
+          while (answer !== "yes" && answer !== "no") {
+            answer = prompt(`Please enter (Yes or No)`);
+          }
+          if (answer === "yes") {
+            player1.exitShipBox();
+          }
+        } else {
+          player1.exitShipBox();
+        }
+      } else if (BoxOfShipsPlayer2.style.display === "flex") {
+        const ships = document.querySelectorAll(".ship.player2");
+        const shipsArr = [...ships];
+        const shipsOffBoard = shipsArr.filter((ship) => {
+          return ship.style.display === "none";
+        });
+
+        if (shipsOffBoard.length < 10) {
+          let answer = prompt(
+            `Closing resets ships places ..Do you want to porceed with closing?
+          (Yes,No)
+            `
+          );
+          answer.toLowerCase();
+          while (answer !== "yes" && answer !== "no") {
+            answer = prompt(`Please enter (Yes or No)`);
+          }
+          if (answer === "yes") {
+            player2.exitShipBox();
+          }
+        } else {
+          player2.exitShipBox();
+        }
+      }
+    });
   });
 
   play1v1Btn.addEventListener("click", () => {
@@ -68,6 +145,8 @@ export default (function () {
     start.style.display = "inline";
     shuffle.style.display = "inline";
     reset.style.display = "inline";
+    placeBoardPlayer1.style.display = "inline";
+    placeBoardPlayer2.style.display = "inline";
     back.style.display = "inline";
     reset.disabled = true;
     reset.classList.add("disabled");
@@ -76,8 +155,8 @@ export default (function () {
 
     shuffle.classList.add("clicked");
 
-    player1BoardHold();
-    player2BoardHold();
+    player1.player1BoardHold();
+    player2.player2BoardHold();
   });
 
   start.addEventListener("click", () => {
@@ -87,14 +166,24 @@ export default (function () {
     shuffle.classList.add("disabled");
     start.disabled = true;
     start.classList.add("disabled");
-
+    placeBoardPlayer1.disabled = true;
+    placeBoardPlayer1.classList.add("disabled");
+    placeBoardPlayer2.disabled = true;
+    placeBoardPlayer2.classList.add("disabled");
     gameStatus.textContent = "Player1's turn";
+
     if (player2BoardCont.style.display === "none") {
       computerBoardEventlisterns();
     } else if (player2BoardCont.style.display !== "none") {
+      const playersBoard = document.querySelectorAll(`.cell`);
+
+      playersBoard.forEach((cell) => {
+        cell.classList.remove("shipColor");
+      });
       player2BoardEventlisterns();
       player1BoardEventlisterns();
-      player2BoardUnHold();
+      player2.player2BoardUnHold();
+      player1.player1BoardUnHold();
     }
   });
   shuffle.addEventListener("click", () => {
@@ -184,8 +273,8 @@ export default (function () {
         player2BoardCont
       );
 
-      player1BoardHold();
-      player2BoardHold();
+      player1.player1BoardHold();
+      player2.player2BoardHold();
     }
 
     shuffle.disabled = false;
@@ -230,8 +319,8 @@ export default (function () {
         () => {
           player2.player2AttackDom(cell);
           gameStatus.textContent = "Player1's turn";
-          player1BoardHold();
-          player2BoardUnHold();
+          player1.player1BoardHold();
+          player2.player2BoardUnHold();
           setTimeout(GamesStatusFn("1v1"), 0);
         },
         { once: true }
@@ -246,8 +335,8 @@ export default (function () {
         () => {
           player1.player1AttackDom(cell, player1BoardEventlisterns);
           gameStatus.textContent = "Player2's turn";
-          player2BoardHold();
-          player1BoardUnHold();
+          player2.player2BoardHold();
+          player1.player1BoardUnHold();
           setTimeout(GamesStatusFn("1v1"), 0);
         },
         { once: true }
@@ -264,26 +353,6 @@ export default (function () {
     computerBoardCont.style.pointerEvents = "auto";
     computerBoardCont.disabled = false;
     computerBoardCont.classList.remove("disabledDarker");
-  };
-  const player1BoardHold = () => {
-    player1BoardCont.disabled = true;
-    player1BoardCont.style.pointerEvents = "none";
-    player1BoardCont.classList.add("disabledDarker");
-  };
-  const player1BoardUnHold = () => {
-    player1BoardCont.style.pointerEvents = "auto";
-    player1BoardCont.disabled = false;
-    player1BoardCont.classList.remove("disabledDarker");
-  };
-  const player2BoardHold = () => {
-    player2BoardCont.disabled = true;
-    player2BoardCont.style.pointerEvents = "none";
-    player2BoardCont.classList.add("disabledDarker");
-  };
-  const player2BoardUnHold = () => {
-    player2BoardCont.style.pointerEvents = "auto";
-    player2BoardCont.disabled = false;
-    player2BoardCont.classList.remove("disabledDarker");
   };
 
   const GamesStatusFn = (gameType) => {
@@ -307,8 +376,8 @@ export default (function () {
       gameStatus.textContent = `${player1Wins2}`;
       start.style.display = "none";
       shuffle.style.display = "none";
-      player2BoardUnHold();
-      player1BoardUnHold();
+      player2.player2BoardUnHold();
+      player1.player1BoardUnHold();
     } else if (computerWins && player1Wins) {
       gameStatus.textContent = `Draw`;
       start.style.display = "none";
@@ -317,14 +386,14 @@ export default (function () {
       gameStatus.textContent = `Draw`;
       start.style.display = "none";
       shuffle.style.display = "none";
-      player2BoardUnHold();
-      player1BoardUnHold();
+      player2.player2BoardUnHold();
+      player1.player1BoardUnHold();
     } else if (player2Wins && !player1Wins) {
       gameStatus.textContent = `${player2Wins}`;
       start.style.display = "none";
       shuffle.style.display = "none";
-      player2BoardUnHold();
-      player1BoardUnHold();
+      player2.player2BoardUnHold();
+      player1.player1BoardUnHold();
     }
   };
 })();

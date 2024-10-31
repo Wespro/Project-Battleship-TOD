@@ -320,6 +320,16 @@ main {
   background-color: rgb(240, 240, 240);
   color: black;
 }
+.flip {
+  position: absolute;
+  top: 0;
+  transform: translate(0, -60px);
+  background-color: #201e43;
+  padding: 1rem;
+  color: aliceblue;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
 
 .disabled {
   cursor: not-allowed;

@@ -91,7 +91,6 @@ export default (function player2() {
           }
         } else if (currentShip.getAttribute("direction") === "vert") {
           for (let i = 1; i < shipBlocksNum; i++) {
- 
             if (
               !dropArea.includes(board2Cells[index + i]) &&
               board2Cells[index + 1]

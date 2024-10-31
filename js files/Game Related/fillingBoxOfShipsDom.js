@@ -59,5 +59,24 @@ export default function (PlayerNum) {
       cellShip.classList.add("boxCell");
       ship.append(cellShip);
     }
+
+    const verticalShips = () => {
+      const ships = document.querySelectorAll(`.ship.player${PlayerNum}`);
+      ships.forEach((ship) => {
+        ship.addEventListener("click", () => {
+          if (
+            ship.getAttribute("direction") &&
+            ship.getAttribute("direction") === "vert"
+          ) {
+            ship.setAttribute("direction", "hori");
+            ship.style.flexDirection = "row";
+          } else {
+            ship.style.flexDirection = "column";
+            ship.setAttribute("direction", "vert");
+          }
+        });
+      });
+    };
+    verticalShips();
   }
 }

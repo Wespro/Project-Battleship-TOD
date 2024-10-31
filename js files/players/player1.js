@@ -45,6 +45,7 @@ export default (function player1() {
               "player1",
               `${gameType}`
             );
+        i === 10 ? cell.classList.add("tenth") : i;
         col.append(cell);
       }
     });
@@ -87,15 +88,49 @@ export default (function player1() {
         if (!dropArea.includes(e.target)) {
           dropArea.push(e.target);
         }
-        for (let i = 1; i < shipBlocksNum; i++) {
-          if (
-            !dropArea.includes(board1Cells[index + count]) &&
-            board1Cells[index + count]
-          ) {
-            dropArea.push(board1Cells[index + count]);
+        if (
+          !currentShip.getAttribute("direction") ||
+          currentShip.getAttribute("direction") === "hori"
+        ) {
+          for (let i = 1; i < shipBlocksNum; i++) {
+            if (
+              !dropArea.includes(board1Cells[index + count]) &&
+              board1Cells[index + count]
+            ) {
+              dropArea.push(board1Cells[index + count]);
+            }
+            count += 10;
           }
-          count += 10;
+        } else if (currentShip.getAttribute("direction") === "vert") {
+          for (let i = 1; i < shipBlocksNum; i++) {
+            if (
+              !dropArea.includes(board1Cells[index + i]) &&
+              board1Cells[index + 1]
+            ) {
+              if (
+                shipBlocksNum === 2 &&
+                !board1Cells[index].classList.contains("tenth")
+              ) {
+                dropArea.push(board1Cells[index + i]);
+                console.log("here");
+              } else if (
+                shipBlocksNum === 3 &&
+                !board1Cells[index].classList.contains("tenth") &&
+                !board1Cells[index + 1].classList.contains("tenth")
+              ) {
+                dropArea.push(board1Cells[index + i]);
+              } else if (
+                shipBlocksNum === 4 &&
+                !board1Cells[index].classList.contains("tenth") &&
+                !board1Cells[index + 1].classList.contains("tenth") &&
+                !board1Cells[index + 2].classList.contains("tenth")
+              ) {
+                dropArea.push(board1Cells[index + i]);
+              }
+            }
+          }
         }
+
         if (dropArea.length === shipBlocksNum) {
           dropArea.forEach((element) => {
             element.classList.add("dragging");

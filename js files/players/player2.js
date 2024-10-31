@@ -32,6 +32,7 @@ export default (function player2() {
       for (let i = 1; i < 11; i++) {
         const cell = document.createElement("div");
         cell.classList.add(`${rowsArr[index]}${i}`, "cell", "player2");
+        i === 10 ? cell.classList.add("tenth") : i;
         col.append(cell);
       }
     });
@@ -71,17 +72,52 @@ export default (function player2() {
       cell.addEventListener("dragover", (e) => {
         let count = 10;
         e.preventDefault();
+
         if (!dropArea.includes(e.target)) {
           dropArea.push(e.target);
         }
-        for (let i = 1; i < shipBlocksNum; i++) {
-          if (
-            !dropArea.includes(board2Cells[index + count]) &&
-            board2Cells[index + count]
-          ) {
-            dropArea.push(board2Cells[index + count]);
+        if (
+          !currentShip.getAttribute("direction") ||
+          currentShip.getAttribute("direction") === "hori"
+        ) {
+          for (let i = 1; i < shipBlocksNum; i++) {
+            if (
+              !dropArea.includes(board2Cells[index + count]) &&
+              board2Cells[index + count]
+            ) {
+              dropArea.push(board2Cells[index + count]);
+            }
+            count += 10;
           }
-          count += 10;
+        } else if (currentShip.getAttribute("direction") === "vert") {
+          for (let i = 1; i < shipBlocksNum; i++) {
+ 
+            if (
+              !dropArea.includes(board2Cells[index + i]) &&
+              board2Cells[index + 1]
+            ) {
+              if (
+                shipBlocksNum === 2 &&
+                !board2Cells[index].classList.contains("tenth")
+              ) {
+                dropArea.push(board2Cells[index + i]);
+                console.log("here");
+              } else if (
+                shipBlocksNum === 3 &&
+                !board2Cells[index].classList.contains("tenth") &&
+                !board2Cells[index + 1].classList.contains("tenth")
+              ) {
+                dropArea.push(board2Cells[index + i]);
+              } else if (
+                shipBlocksNum === 4 &&
+                !board2Cells[index].classList.contains("tenth") &&
+                !board2Cells[index + 1].classList.contains("tenth") &&
+                !board2Cells[index + 2].classList.contains("tenth")
+              ) {
+                dropArea.push(board2Cells[index + i]);
+              }
+            }
+          }
         }
         if (dropArea.length === shipBlocksNum) {
           dropArea.forEach((element) => {

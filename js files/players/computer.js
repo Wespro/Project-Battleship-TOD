@@ -60,18 +60,17 @@ export default (function computer() {
         randomCord.disabled = true;
         randomCord.classList.add("disabled");
         gameStatus.textContent = "Player1's turn";
-
         callBack();
       } else {
         computerAttackDom(cell, callBack);
       }
     };
-    setTimeout(attack, 500);
+    attack();
   };
 
   const shipsStatusDom = () => {
     const shipscords = computer.gameboard.shipsCords;
-    let shipsHits = 0;
+    let shipsHits = 20;
     shipscords.forEach((cord) => {
       const boardCord = document.querySelector(
         `.${cord[0]}${cord[1]}.computer`

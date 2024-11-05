@@ -253,6 +253,9 @@ export default (function () {
       computer.startTheBoard();
       shuffleBoards.reShuffle(player1.player1, "player1", player1BoardCont);
       shuffleBoards.reShuffle(computer.computer, "computer", computerBoardCont);
+      placeBoardPlayer1.style.display = "inline";
+      placeBoardPlayer1.disabled = false;
+      placeBoardPlayer1.classList.remove("disabled");
       computerBoardHold();
     } else {
       player1.resetBoard();
@@ -272,6 +275,12 @@ export default (function () {
         "player2",
         player2BoardCont
       );
+      placeBoardPlayer1.style.display = "inline";
+      placeBoardPlayer1.disabled = false;
+      placeBoardPlayer1.classList.remove("disabled");
+      placeBoardPlayer2.style.display = "inline";
+      placeBoardPlayer2.disabled = false;
+      placeBoardPlayer2.classList.remove("disabled");
 
       player1.player1BoardHold();
       player2.player2BoardHold();
@@ -303,7 +312,7 @@ export default (function () {
           player1.player1AttackDom(cell);
           computerBoardHold();
           computer.computerAttackDom(cell, computerBoardUnHold);
-          setTimeout(GamesStatusFn(), 0);
+          GamesStatusFn("", computerBoardCont);
         },
         { once: true }
       );
@@ -321,7 +330,7 @@ export default (function () {
           gameStatus.textContent = "Player1's turn";
           player1.player1BoardHold();
           player2.player2BoardUnHold();
-          setTimeout(GamesStatusFn("1v1"), 0);
+          setTimeout(GamesStatusFn("1v1", player1BoardCont), 0);
         },
         { once: true }
       );
@@ -337,7 +346,7 @@ export default (function () {
           gameStatus.textContent = "Player2's turn";
           player2.player2BoardHold();
           player1.player1BoardUnHold();
-          setTimeout(GamesStatusFn("1v1"), 0);
+          setTimeout(GamesStatusFn("1v1", player2BoardCont), 0);
         },
         { once: true }
       );
@@ -355,7 +364,7 @@ export default (function () {
     computerBoardCont.classList.remove("disabledDarker");
   };
 
-  const GamesStatusFn = (gameType) => {
+  const GamesStatusFn = (gameType, playerBoard) => {
     const player1Wins = computer.shipsStatusDom();
     const player1Wins2 = player2.shipsStatusDom();
     let computerWins;
@@ -368,32 +377,30 @@ export default (function () {
       gameStatus.textContent = `${computerWins}`;
       start.style.display = "none";
       shuffle.style.display = "none";
+      playerBoard.style.pointerEvents = "none";
+      player1BoardCont.style.pointerEvents = "none";
     } else if (!computerWins && player1Wins && !gameType) {
       gameStatus.textContent = `${player1Wins}`;
       start.style.display = "none";
       shuffle.style.display = "none";
+      playerBoard.style.pointerEvents = "none";
+      player1BoardCont.style.pointerEvents = "none";
     } else if (player1Wins2 && !player2Wins && gameType) {
       gameStatus.textContent = `${player1Wins2}`;
       start.style.display = "none";
       shuffle.style.display = "none";
       player2.player2BoardUnHold();
       player1.player1BoardUnHold();
-    } else if (computerWins && player1Wins) {
-      gameStatus.textContent = `Draw`;
-      start.style.display = "none";
-      shuffle.style.display = "none";
-    } else if (player2Wins && player1Wins && gameType) {
-      gameStatus.textContent = `Draw`;
-      start.style.display = "none";
-      shuffle.style.display = "none";
-      player2.player2BoardUnHold();
-      player1.player1BoardUnHold();
-    } else if (player2Wins && !player1Wins) {
+      player1BoardCont.style.pointerEvents = "none";
+      playerBoard.style.pointerEvents = "none";
+    } else if (player2Wins && !player1Wins2) {
       gameStatus.textContent = `${player2Wins}`;
       start.style.display = "none";
       shuffle.style.display = "none";
       player2.player2BoardUnHold();
       player1.player1BoardUnHold();
+      playerBoard.style.pointerEvents = "none";
+      player1BoardCont.style.pointerEvents = "none";
     }
   };
 })();
